@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>House Data</title>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="./css/styles.css">
+	</head>
+	<body>
+
+		<div class="container" id="app">
+
+			<span class="d-none" id="currentPage">house</span>
+			<!--Span para indicarle al js si queremos ver datos del senado o de house-->
+
+			<header>
+				<div class="row mb-3 mt-3">
+					<div class="col-4">
+						<img src="./img/logo.jpg" alt="logo" id="logo" style="display: inline;">
+					</div>
+
+					<div class="col-6"></div>
+					<div class="col-2 p-4" id="divMail">
+						<i class="far fa-envelope text-dark"> <a href="mailto:info@tgif.net">info@tgif.net</a></i>
+					</div>
+
+				</div>
+			</header>
+
+
+
+			<nav class="navbar navbar-expand-lg navbar-dark bg-light border boder-dark">
+
+
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarDura"
+			    aria-controls="navbarDura" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+
+
+			  <div class="collapse navbar-collapse" id="navbarDura">
+
+
+			    <ul class="navbar-nav mr-auto">
+			      <li class="nav-item">
+			        <a class="nav-link text-dark" href="index.html">Home</a>
+			      </li>
+
+
+			      <li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle text-primary" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+			          aria-expanded="false" href="#">Congress 113</a>
+			        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+			        	<a class="dropdown-item" href="senate-data.html">Senators</a>
+			          	<a class="dropdown-item active" href="house-data.html">House</a>
+			        </div>
+			      </li>
+
+			       <li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle text-dark" id="navbarDropdownMenuAttendance" data-toggle="dropdown" aria-haspopup="true"
+			          aria-expanded="false" href="#">Attendance</a>
+			        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuAttendance">
+			        	<a class="dropdown-item text-dark" href="senate-attendance.html">Senate</a>
+			          	<a class="dropdown-item text-dark" href="house-attendance.html">House</a>
+			        </div>
+
+			      </li>
+
+			      <li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle text-dark" id="navbarDropdownMenuLoyalty" data-toggle="dropdown" aria-haspopup="true"
+			          aria-expanded="false" href="#">Party Loyalty</a>
+			        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLoyalty">
+			        	<a class="dropdown-item text-dark" href="senate-loyalty.html">Senate</a>
+			          	<a class="dropdown-item text-dark" href="house-loyalty.html">House</a>
+			        </div>
+
+			      </li>
+
+			    </ul>
+
+
+			  </div>
+
+
+			</nav>
+
+
+
+
+
+
+
+
+			<h1 class="display-3">Congressmen</h1>
+			<div class="row">
+				<p class="col-8">The major power of the House is to pass federal legislation that affects the entire country, although its bills must also be passed by the Senate and further agreed to by the U.S. President before becoming law (unless both the House and Senate re-pass the legislation with a two-thirds majority in each chamber). The House has some exclusive powers: the power to initiate revenue bills, to impeach officials (impeached officials are subsequently tried in the Senate), and to elect the U.S. President in case there is no majority in the Electoral College.
+				</p><p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
+
+			</div>
+
+			<div class="row">
+				<div class="col-9">
+					<span>Filter by Party: </span>
+					<label><input type="checkbox" name="parties" value="R" class="checkboxes" checked v-model="checkedParties"> Republican </label>
+					<label><input type="checkbox" name="parties" value="D" class="checkboxes" checked v-model="checkedParties"> Democrat </label>
+					<label><input type="checkbox" name="parties" value="I" class="checkboxes" checked v-model="checkedParties"> Independent</label>
+
+
+				</div>
+				<div class="col-3">
+					<label>Filter by state: <select id="dropdown-state" class="ml-2" v-model="selectedState">
+						<option value="all">All</option>
+						<option v-for="value in statesList" :value="value">{{value}}</option>
+						<!--Se llena automaticamente en js-->
+					</select>
+
+					</label>
+				</div>
+			</div>
+
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>Congressman</th>
+						<th>Party</th>
+						<th>State</th>
+						<th>Seniority</th>
+						<th>Votes With Party %</th>
+					</tr>
+					<tr v-for="(value,index) in filteredSenators">
+						<td><a v-bind:href=value.url>{{value.first_name}} {{value.middle_name}} {{value.last_name}}</a></td>
+						<td>{{value.party}}</td>
+						<td>{{value.state}}</td>
+						<td>{{value.seniority}}</td>
+						<td>{{value.votes_with_party_pct}}%</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<footer class="bg-light text-center border border-dark text-dark mb-5 p-3">
+				<h6>© 2016 TGIF | All Rights Reserved</h6>
+			</footer>
+
+
+
+		</div>
+		<script	src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="./js/statistics.js"></script>
+		<script src="./js/app.js"></script>
+	</body>
+
+
+
+</html>

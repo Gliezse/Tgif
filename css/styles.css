@@ -1,0 +1,25 @@
+#divMail{
+	font-size: 18px;
+	font-family: "arial";
+}
+
+#logo{
+	height: 80px;
+}
+
+p{
+	text-indent: 30px;
+}
+
+#logo2{
+	height: 80%;
+}
+
+
+.d-none-cbxs{
+	display: none;
+}
+
+.d-none-list{
+	display: none;
+}
